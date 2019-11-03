@@ -40,16 +40,17 @@ public class Interpreter {
             throw InterpreterError.parseError(reason: "Expected EOF but got '\(eof.kind)'")
         }
 
+        // ensure both sides are integers, as thats all that operations can be performed on right now
+        guard lhs.kind == .integer, rhs.kind == .integer else {
+            throw InterpreterError.parseError(reason: "Operator '\(operation.value as! Character)' cannot be applied to operands of type '\(lhs.kind)' and '\(rhs.kind)'")
+        }
+
         // handle the different operations
         switch operation.kind {
         case .plus:
-            // ensure both sides are integers, as thats all that can be added right now
-            guard lhs.kind == .integer, rhs.kind == .integer else {
-                throw InterpreterError.parseError(reason: "Operator '\(operation.value as! Character)' cannot be applied to operands of type '\(lhs.kind)' and '\(rhs.kind)'")
-            }
-
-            // return the result of the text
             return (lhs.value as! Int) + (rhs.value as! Int)
+        case .minus:
+            return (lhs.value as! Int) - (rhs.value as! Int)
         default:
             throw InterpreterError.parseError(reason: "Unknown operation '\(operation.kind)')")
         }
@@ -115,7 +116,22 @@ public class Interpreter {
             return token
         }
         else {
-            throw InterpreterError.parseError(reason: "Unable to translate character '\(startCharacter)' to token")
+            // handle single character operators
+            let token: Token
+            switch startCharacter {
+            case "+":
+                token = Token(kind: .plus, value: startCharacter)
+                break
+            case "-":
+                token = Token(kind: .minus, value: startCharacter)
+                break
+            default:
+                throw InterpreterError.parseError(reason: "Unable to translate character '\(startCharacter)' to token")
+            }
+
+            // increment the position and return the token
+            position = text.index(after: position)
+            return token
         }
     }
 }
