@@ -68,19 +68,40 @@ public class Interpreter {
 
         // parse the token for the current character
         let character = text[position]
-        let token: Token
         if character.isNumber {
-            token = Token(kind: .integer, value: character.wholeNumberValue!)
+            // parse out the entire integer literal
+            // continually read the next digit until there are no more
+            // then at the end convert them all into a single integer
+            var string = ""
+            while true {
+                // ensure the current position is within range
+                guard position < text.endIndex else {
+                    break
+                }
+
+                // get the next character in the integer
+                let character = text[position]
+                guard character.isNumber else {
+                    break
+                }
+
+                // append the character and increment the position for the next character
+                string.append(character)
+                position = text.index(after: position)
+            }
+
+            // parse the final value and return the new token
+            let value = Int(string)
+            return Token(kind: .integer, value: value)
         }
         else if character == "+" {
-            token = Token(kind: .plus, value: character)
+            // create and return the new token and increment the position for the next token
+            let token = Token(kind: .plus, value: character)
+            position = text.index(after: position)
+            return token
         }
         else {
             throw InterpreterError.parseError(reason: "Unable to translate character '\(character)' to token")
         }
-
-        // increment the position and return the token
-        position = text.index(after: position)
-        return token
     }
 }

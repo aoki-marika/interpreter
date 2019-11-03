@@ -17,10 +17,17 @@ class InterpreterTests: XCTestCase {
         XCTAssertEqual(try? interpreter.evaluate() as? Int, lhs + rhs)
     }
 
-    func testAddIntegers() {
+    func testAddSingleDigitIntegers() {
         assertAddIntegers(lhs: 5, rhs: 7)
         assertAddIntegers(lhs: 1, rhs: 3)
         assertAddIntegers(lhs: 9, rhs: 6)
         assertAddIntegers(lhs: 8, rhs: 8)
+    }
+
+    func testAddMultiDigitIntegers() {
+        assertAddIntegers(lhs: 7, rhs: 43)
+        assertAddIntegers(lhs: 21, rhs: 17)
+        assertAddIntegers(lhs: 512, rhs: 3)
+        assertAddIntegers(lhs: 34, rhs: 1251)
     }
 }
