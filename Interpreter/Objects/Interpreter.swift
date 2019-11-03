@@ -66,9 +66,23 @@ public class Interpreter {
             return Token(kind: .endOfFile)
         }
 
-        // parse the token for the current character
-        let character = text[position]
-        if character.isNumber {
+        // get the character at the start of the token
+        var startCharacter = text[position]
+
+        // skip past and ignore any whitespace
+        while startCharacter.isWhitespace {
+            // ensure that the next position is still in range
+            // if its not then the text ends in whitespace, so return an eof
+            position = text.index(after: position)
+            guard position < text.endIndex else {
+                return Token(kind: .endOfFile)
+            }
+
+            startCharacter = text[position]
+        }
+
+        // parse the token depending on what it begins with
+        if startCharacter.isNumber {
             // parse out the entire integer literal
             // continually read the next digit until there are no more
             // then at the end convert them all into a single integer
@@ -94,14 +108,14 @@ public class Interpreter {
             let value = Int(string)
             return Token(kind: .integer, value: value)
         }
-        else if character == "+" {
+        else if startCharacter == "+" {
             // create and return the new token and increment the position for the next token
-            let token = Token(kind: .plus, value: character)
+            let token = Token(kind: .plus, value: startCharacter)
             position = text.index(after: position)
             return token
         }
         else {
-            throw InterpreterError.parseError(reason: "Unable to translate character '\(character)' to token")
+            throw InterpreterError.parseError(reason: "Unable to translate character '\(startCharacter)' to token")
         }
     }
 }
