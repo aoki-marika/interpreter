@@ -10,6 +10,7 @@
 		ECCC5C4B236EFF5500B00468 /* Interpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCC5C41236EFF5500B00468 /* Interpreter.framework */; };
 		ECCC5C50236EFF5500B00468 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C4F236EFF5500B00468 /* InterpreterTests.swift */; };
 		ECCC5C52236EFF5500B00468 /* Interpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECCC5C44236EFF5500B00468 /* Interpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C5C236EFFEF00B00468 /* Token.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		ECCC5C4A236EFF5500B00468 /* InterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCC5C4F236EFF5500B00468 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		ECCC5C51236EFF5500B00468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECCC5C5C236EFFEF00B00468 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		ECCC5C43236EFF5500B00468 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
+				ECCC5C5B236EFFCE00B00468 /* Objects */,
 				ECCC5C44236EFF5500B00468 /* Interpreter.h */,
 				ECCC5C45236EFF5500B00468 /* Info.plist */,
 			);
@@ -84,6 +87,14 @@
 				ECCC5C51236EFF5500B00468 /* Info.plist */,
 			);
 			path = InterpreterTests;
+			sourceTree = "<group>";
+		};
+		ECCC5C5B236EFFCE00B00468 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +159,7 @@
 				TargetAttributes = {
 					ECCC5C40236EFF5500B00468 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1100;
 					};
 					ECCC5C49236EFF5500B00468 = {
 						CreatedOnToolsVersion = 11.0;
@@ -195,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +353,7 @@
 		ECCC5C56236EFF5500B00468 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZPZL835757;
@@ -356,6 +370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = marika.Interpreter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +379,7 @@
 		ECCC5C57236EFF5500B00468 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZPZL835757;
@@ -388,6 +404,7 @@
 		ECCC5C59236EFF5500B00468 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZPZL835757;
 				INFOPLIST_FILE = InterpreterTests/Info.plist;
@@ -406,6 +423,7 @@
 		ECCC5C5A236EFF5500B00468 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZPZL835757;
 				INFOPLIST_FILE = InterpreterTests/Info.plist;
