@@ -41,16 +41,24 @@ public class Interpreter {
         }
 
         // ensure both sides are integers, as thats all that operations can be performed on right now
-        guard lhs.kind == .integer, rhs.kind == .integer else {
-            throw InterpreterError.parseError(reason: "Operator '\(operation.value as! Character)' cannot be applied to operands of type '\(lhs.kind)' and '\(rhs.kind)'")
+        guard lhs.kind == .integer, rhs.kind == .integer, let lhsValue = lhs.value as? Int, let rhsValue = rhs.value as? Int else {
+            guard let operationCharacter = operation.value as? Character else {
+                throw InterpreterError.parseError(reason: "Unknown operator '\(operation.kind)'")
+            }
+
+            throw InterpreterError.parseError(reason: "Operator '\(operationCharacter)' cannot be applied to operands of type '\(lhs.kind)' and '\(rhs.kind)'")
         }
 
         // handle the different operations
         switch operation.kind {
         case .plus:
-            return (lhs.value as! Int) + (rhs.value as! Int)
+            return lhsValue + rhsValue
         case .minus:
-            return (lhs.value as! Int) - (rhs.value as! Int)
+            return lhsValue - rhsValue
+        case .asterisk:
+            return lhsValue * rhsValue
+        case .slash:
+            return lhsValue / rhsValue
         default:
             throw InterpreterError.parseError(reason: "Unknown operation '\(operation.kind)')")
         }
@@ -124,6 +132,12 @@ public class Interpreter {
                 break
             case "-":
                 token = Token(kind: .minus, value: startCharacter)
+                break
+            case "*":
+                token = Token(kind: .asterisk, value: startCharacter)
+                break
+            case "/":
+                token = Token(kind: .slash, value: startCharacter)
                 break
             default:
                 throw InterpreterError.parseError(reason: "Unable to translate character '\(startCharacter)' to token")

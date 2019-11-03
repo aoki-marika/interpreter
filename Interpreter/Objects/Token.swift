@@ -59,6 +59,16 @@ extension Token {
         /// Value is the `Character` of the operator.
         case minus
 
+        /// A `*` operator.
+        ///
+        /// Value is the `Character` of the operator.
+        case asterisk
+
+        /// A `/` operator.
+        ///
+        /// Value is the `Character` of the operator.
+        case slash
+
         /// An `EOF` marker.
         ///
         /// Value is `nil`.
