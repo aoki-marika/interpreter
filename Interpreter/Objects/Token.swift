@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// The data structure for a token within a program's source code.
+/// The data structure for a token within a program's text.
 struct Token: CustomStringConvertible {
 
     // MARK: Public Properties
@@ -23,6 +23,15 @@ struct Token: CustomStringConvertible {
 
     var description: String {
         return "Token(\(kind), \(String(describing: value)))"
+    }
+
+    // MARK: Initializers
+
+    /// - Parameter kind: The kind of this token.
+    /// - Parameter value: The value of this token.
+    init(kind: Kind, value: Any? = nil) {
+        self.kind = kind
+        self.value = value
     }
 }
 
