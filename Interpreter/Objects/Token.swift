@@ -38,6 +38,8 @@ extension Token {
         // MARK: Cases
 
         /// A number literal, either integer or floating point.
+        ///
+        /// - Note: Regardless of the format of the literal, all numbers  are processed as `Number`s.
         case number
 
         /// The `*` operator.

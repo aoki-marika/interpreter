@@ -20,7 +20,7 @@ class Interpreter {
     private var currentToken: Token!
 
     /// The cached result of the initial call to `evaluate()`, if any.
-    private var result: Int!
+    private var result: Number!
 
     // MARK: Initializers
 
@@ -36,7 +36,7 @@ class Interpreter {
     /// This is intended to only be called once.
     /// If this is called multiple times, then the cached result of the initial evaluation is returned.
     /// - Returns: The result of the given text.
-    func evaluate() throws -> Int {
+    func evaluate() throws -> Number {
         // return the cached result if there is one
         if let result = result {
             return result
@@ -90,18 +90,14 @@ class Interpreter {
         try nextToken()
     }
 
-    /// Get the integer value from the current token of this interpreter, and advance the current token.
-    /// - Returns: The integer value of the current token of this interpreter.
-    private func term() throws -> Int {
+    /// Get the number value from the current token of this interpreter, and advance the current token.
+    /// - Returns: The number value of the current token of this interpreter.
+    private func term() throws -> Number {
         // get the number token
         let token = currentToken!
         try eat(kind: .number)
 
         // parse and return the value
-        guard let value = Int(token.literal) else {
-            throw InterpreterError.invalidIntegerLiteral(literal: token.literal)
-        }
-
-        return value
+        return Number(token.literal)!
     }
 }

@@ -17,14 +17,7 @@ enum TokenizerError: Error {
     /// - Parameter character:
     case invalidCharacter(character: Character)
 
-    /// The tokenizer expectected a number literal, but could not find one.
-    case emptyNumberLiteral
-
-    /// The tokenizer encountered an integer literal that was not formatted correctly.
-    /// - Parameter literal: The incorrect integer literal.
-    case invalidIntegerLiteral(literal: String)
-
-    /// The tokenizer encountered a floating point literal that was not formatted correctly.
-    /// - Parameter literal: The incorrect floating point literal.
-    case invalidFloatingPointLiteral(literal: String)
+    /// The tokenizer encountered a number literal that was not formatted correctly.
+    /// - Parameter literal: The incorrect number literal.
+    case invalidNumberLiteral(literal: String)
 }

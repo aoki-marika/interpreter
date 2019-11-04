@@ -30,7 +30,7 @@ class Tokenizer {
 
     /// Whether or not the text at the current position could be a number with a prefixed character.
     ///
-    /// Useful for negatives and invalid floating point literals.
+    /// Used for negatives and invalid floating point literals with no beginning `0`.
     private var isPrefixedNumber: Bool {
         return peekCharacter().isNumber
     }
@@ -82,10 +82,10 @@ class Tokenizer {
             // division operator
             token = Token(kind: .slash, literal: String(currentCharacter))
         case ".":
-            // handle invalid floating point literals that only have a `.`, with no `0`
+            // handle invalid floating point literals that only have a `.` with no beginning `0`
             if isPrefixedNumber {
                 let literal = try readPrefixedNumber()
-                throw TokenizerError.invalidFloatingPointLiteral(literal: literal)
+                throw TokenizerError.invalidNumberLiteral(literal: literal)
             }
         case endOfFileMarker:
             // end of file marker
@@ -147,6 +147,7 @@ class Tokenizer {
     private func readNumber() throws -> String {
         // read all the parts of the number literal
         // both digits and periods, for floating point literals
+        #warning("TODO: Validate here that only one period is processed, then break at the second.")
         var string = ""
         while peekCharacter().isNumber || peekCharacter() == "." {
             string.append(currentCharacter)
@@ -157,25 +158,19 @@ class Tokenizer {
 
         // ensure there was some form of number literal
         guard !string.isEmpty else {
-            throw TokenizerError.emptyNumberLiteral
+            throw TokenizerError.invalidNumberLiteral(literal: string)
         }
 
         // ensure that there are no more than two periods, as floating point literals can only have one
         let pointCount = string.components(separatedBy: ".").count
         guard pointCount <= 2 else {
-            throw TokenizerError.invalidFloatingPointLiteral(literal: string)
+            throw TokenizerError.invalidNumberLiteral(literal: string)
         }
 
         // ensure that the number literal has digits at the beginning and end
         // this is to avoid something like .9812 or 12. for floating point literals
         guard string.first?.isNumber ?? false && string.last?.isNumber ?? false else {
-            // throw the appropriate error for the assumed literal type
-            if string.contains(".") {
-                throw TokenizerError.invalidFloatingPointLiteral(literal: string)
-            }
-            else {
-                throw TokenizerError.invalidIntegerLiteral(literal: string)
-            }
+            throw TokenizerError.invalidNumberLiteral(literal: string)
         }
 
         // return the literal

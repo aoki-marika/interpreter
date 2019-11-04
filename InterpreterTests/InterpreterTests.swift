@@ -13,14 +13,14 @@ class InterpreterTests: XCTestCase {
 
     // MARK: Test Cases
 
-    func testIntegerLiteral() {
-        // test an integer literal with no operations
-        let value = 5328
+    func testNumberLiteral() {
+        // test a number literal with no operations
+        let value = Number(5328)
         assertResult(of: "\(value)", equals: value)
     }
 
-    func testSingleIntegerOperations() {
-        // test different single integer operations
+    func testSingleNumberOperations() {
+        // test different single number operations
         assertOperation(
             lhs: 8,
             rhs: 16,
@@ -50,8 +50,8 @@ class InterpreterTests: XCTestCase {
         )
     }
 
-    func testCompoundIntegerOperations() {
-        // test different compound integer operations
+    func testCompoundNumberOperations() {
+        // test different compound number operations
         // note: only does addition + subtraction or division + multiplication right now as order of operations is not implemented
         assertResult(of: "9 - 5 + 3 + 11", equals: 9 - 5 + 3 + 11)
         assertResult(of: "89 + 2351 - 479 + 1", equals: 89 + 2351 - 479 + 1)
@@ -71,10 +71,10 @@ class InterpreterTests: XCTestCase {
     /// Assert that the result of the given program text matches the given value.
     /// - Parameter text: The program text to evaluate.
     /// - Parameter expected: The result that is expected.
-    private func assertResult(of text: String, equals expected: Int) {
+    private func assertResult(of text: String, equals expected: Number) {
         let interpreter = Interpreter(text: text)
 
-        var result: Int!
+        var result: Number!
         XCTAssertNoThrow(result = try interpreter.evaluate())
         XCTAssertEqual(result, expected)
     }
@@ -84,7 +84,7 @@ class InterpreterTests: XCTestCase {
     /// - Parameter rhs: The right hand side of the operation.
     /// - Parameter operation: The block called to get the correct result that the interpreter result is checked against. Passed `lhs` and `rhs`.
     /// - Parameter literal: The literal of the operation in program text.
-    private func assertOperation(lhs: Int, rhs: Int, operation: (Int, Int) -> Int, literal: String) {
+    private func assertOperation(lhs: Number, rhs: Number, operation: (Number, Number) -> Number, literal: String) {
         let text = "\(lhs) \(literal) \(rhs)"
         assertResult(of: text, equals: operation(lhs, rhs))
     }

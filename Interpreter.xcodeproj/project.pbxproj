@@ -16,6 +16,7 @@
 		ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A32370630600DAB6F7 /* TokenizerError.swift */; };
 		ECF904A62370640F00DAB6F7 /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */; };
 		ECF904A823708A5F00DAB6F7 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A723708A5F00DAB6F7 /* InterpreterError.swift */; };
+		ECF904AA2370B71400DAB6F7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A92370B71400DAB6F7 /* Types.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		ECF904A32370630600DAB6F7 /* TokenizerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerError.swift; sourceTree = "<group>"; };
 		ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
 		ECF904A723708A5F00DAB6F7 /* InterpreterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
+		ECF904A92370B71400DAB6F7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		ECCC5C43236EFF5500B00468 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
+				ECF904A92370B71400DAB6F7 /* Types.swift */,
 				ECCC5C5B236EFFCE00B00468 /* Objects */,
 				ECCC5C44236EFF5500B00468 /* Interpreter.h */,
 				ECCC5C45236EFF5500B00468 /* Info.plist */,
@@ -225,6 +228,7 @@
 				ECCC5C5F236F008B00B00468 /* Interpreter.swift in Sources */,
 				ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */,
 				ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */,
+				ECF904AA2370B71400DAB6F7 /* Types.swift in Sources */,
 				ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */,
 				ECF904A823708A5F00DAB6F7 /* InterpreterError.swift in Sources */,
 			);
