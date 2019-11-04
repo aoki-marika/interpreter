@@ -13,18 +13,13 @@ enum InterpreterError: Error {
 
     // MARK: Cases
 
-    /// The interpreter expected to find an end of file token, but did not.
-    /// - Parameter found: The token kind that was found instead of an end of file.
-    case missingEndOfFile(found: Token.Kind)
+    /// The interpreter expected one token kind, but got another.
+    /// - Parameter expected: The token kind that was expected.
+    /// - Parameter got: The token kind that was found.
+    case unexpectedTokenKind(expected: Token.Kind, got: Token.Kind)
 
-    /// An operator was called with invalid operand kinds.
-    /// - Parameter lhs: The token kind of the left hand side of the operation.
-    /// - Parameter rhs: The token kind of the right hand side of the operation.
-    case invalidOperandKinds(lhs: Token.Kind, rhs: Token.Kind)
-
-    /// Attempted to perform an invalid token kind in place of an operator.
-    case invalidOperatorKind(kind: Token.Kind)
-
-    /// An operation was called with valid operand kinds, but the literals were invalid.
-    case invalidOperandLiterals(lhs: String, rhs: String)
+    /// The interpreter expected an integer literal, but got a floating point literal.
+    /// - Note: This is a temporary error while the interpreter only supports integers.
+    /// - Parameter literal: The float literal that was found instead of an integer literal.
+    case invalidIntegerLiteral(literal: String)
 }
