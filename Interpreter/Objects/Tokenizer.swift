@@ -147,10 +147,15 @@ class Tokenizer {
     private func readNumber() throws -> String {
         // read all the parts of the number literal
         // both digits and periods, for floating point literals
-        #warning("TODO: Validate here that only one period is processed, then break at the second.")
+        // if there are multiple periods then break before the second one
         var string = ""
-        while peekCharacter().isNumber || peekCharacter() == "." {
+        var hasFoundPeriod = false
+        while peekCharacter().isNumber || (peekCharacter() == "." && !hasFoundPeriod) {
             string.append(currentCharacter)
+            if currentCharacter == "." {
+                hasFoundPeriod = true
+            }
+
             readCharacter()
         }
 
@@ -158,12 +163,6 @@ class Tokenizer {
 
         // ensure there was some form of number literal
         guard !string.isEmpty else {
-            throw TokenizerError.invalidNumberLiteral(literal: string)
-        }
-
-        // ensure that there are no more than two periods, as floating point literals can only have one
-        let pointCount = string.components(separatedBy: ".").count
-        guard pointCount <= 2 else {
             throw TokenizerError.invalidNumberLiteral(literal: string)
         }
 
