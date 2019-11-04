@@ -34,6 +34,9 @@ struct Token {
 extension Token {
     /// The different kinds a token can be.
     enum Kind {
+
+        // MARK: Cases
+
         /// A number literal, either integer or floating point.
         case number
 
@@ -51,8 +54,16 @@ extension Token {
 
         /// The end of file marker.
         ///
+        /// If this is returned from a tokenizer then all of the text has been tokenized.
         /// - Note: The value of this token is always empty.
         case endOfFile
+
+        // MARK: Public Properties
+
+        /// Whether or not this token kind is used as an operator.
+        var isOperator: Bool {
+            return self == .asterisk || self == .minus || self == .plus || self == .slash
+        }
     }
 }
 

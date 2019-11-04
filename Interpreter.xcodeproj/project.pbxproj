@@ -12,10 +12,10 @@
 		ECCC5C52236EFF5500B00468 /* Interpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECCC5C44236EFF5500B00468 /* Interpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C5C236EFFEF00B00468 /* Token.swift */; };
 		ECCC5C5F236F008B00B00468 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C5E236F008B00B00468 /* Interpreter.swift */; };
-		ECCC5C61236F09F000B00468 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C60236F09F000B00468 /* InterpreterError.swift */; };
 		ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C62236F251F00B00468 /* Tokenizer.swift */; };
 		ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A32370630600DAB6F7 /* TokenizerError.swift */; };
 		ECF904A62370640F00DAB6F7 /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */; };
+		ECF904A823708A5F00DAB6F7 /* InterpreterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A723708A5F00DAB6F7 /* InterpreterError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +37,10 @@
 		ECCC5C51236EFF5500B00468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCC5C5C236EFFEF00B00468 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		ECCC5C5E236F008B00B00468 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
-		ECCC5C60236F09F000B00468 /* InterpreterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
 		ECCC5C62236F251F00B00468 /* Tokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
 		ECF904A32370630600DAB6F7 /* TokenizerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerError.swift; sourceTree = "<group>"; };
 		ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
+		ECF904A723708A5F00DAB6F7 /* InterpreterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 			children = (
 				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
 				ECCC5C5E236F008B00B00468 /* Interpreter.swift */,
-				ECCC5C60236F09F000B00468 /* InterpreterError.swift */,
+				ECF904A723708A5F00DAB6F7 /* InterpreterError.swift */,
 				ECCC5C62236F251F00B00468 /* Tokenizer.swift */,
 				ECF904A32370630600DAB6F7 /* TokenizerError.swift */,
 			);
@@ -223,10 +223,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECCC5C5F236F008B00B00468 /* Interpreter.swift in Sources */,
-				ECCC5C61236F09F000B00468 /* InterpreterError.swift in Sources */,
 				ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */,
 				ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */,
 				ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */,
+				ECF904A823708A5F00DAB6F7 /* InterpreterError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
