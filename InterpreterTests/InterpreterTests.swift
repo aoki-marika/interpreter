@@ -52,12 +52,18 @@ class InterpreterTests: XCTestCase {
 
     func testCompoundIntegerOperations() {
         // test different compound integer operations
-        // note: only does addition and subtraction right now as order of operations is not implemented
+        // note: only does addition + subtraction or division + multiplication right now as order of operations is not implemented
         assertResult(of: "9 - 5 + 3 + 11", equals: 9 - 5 + 3 + 11)
         assertResult(of: "89 + 2351 - 479 + 1", equals: 89 + 2351 - 479 + 1)
         assertResult(of: "49 - 79 - 13 + 15 + 5", equals: 49 - 79 - 13 + 15 + 5)
         assertResult(of: "-9879 - 1353 - 45", equals: -9879 - 1353 - 45)
         assertResult(of: "654 + 2 - -1456", equals: 654 + 2 - -1456)
+
+        assertResult(of: "9 / 5 * 3 * 11", equals: 9 / 5 * 3 * 11)
+        assertResult(of: "89 * 2351 / 479 * 1", equals: 89 * 2351 / 479 * 1)
+        assertResult(of: "49 / 79 / 13 * 15 * 5", equals: 49 / 79 / 13 * 15 * 5)
+        assertResult(of: "-9879 / 1353 / 45", equals: -9879 / 1353 / 45)
+        assertResult(of: "654 * 2 / -1456", equals: 654 * 2 / -1456)
     }
 
     // MARK: Private Methods
