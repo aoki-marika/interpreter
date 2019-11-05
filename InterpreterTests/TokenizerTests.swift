@@ -14,6 +14,7 @@ class TokenizerTests: XCTestCase {
     // MARK: Test Cases
 
     func testNumbers() {
+        // test number tokens
         assertTokens(
             from: "1 22 333 4444 55555 666.666 -7777777 -8888.8888",
             equal: [
@@ -52,6 +53,7 @@ class TokenizerTests: XCTestCase {
     }
 
     func testOperators() {
+        // test operator tokens
         assertTokens(
             from: "   23984 +72673 - 615/ 69581*432168      */-7+*/     3",
             equal: [
@@ -78,6 +80,7 @@ class TokenizerTests: XCTestCase {
     }
 
     func testParentheses() {
+        // test parentheses tokens
         assertTokens(
             from: "   2(39)8)4 +72((673 )- 6)15(/ 6(958)1*43()2168   )(   */-7+*/     3",
             equal: [
@@ -120,6 +123,23 @@ class TokenizerTests: XCTestCase {
                 Token(kind: .asterisk, literal: "*"),
                 Token(kind: .slash, literal: "/"),
                 Token(kind: .number, literal: "3"),
+                Token(kind: .endOfFile),
+            ]
+        )
+    }
+
+    func testSimpleProgram() {
+        // test tokens from an extremely simple program with terrible formatting
+        assertTokens(
+            from: "   BEGIN a= 2;END .     ",
+            equal: [
+                Token(kind: .begin, literal: "BEGIN"),
+                Token(kind: .id, literal: "a"),
+                Token(kind: .assignment, literal: "="),
+                Token(kind: .number, literal: "2"),
+                Token(kind: .semicolon, literal: ";"),
+                Token(kind: .end, literal: "END"),
+                Token(kind: .dot, literal: "."),
                 Token(kind: .endOfFile),
             ]
         )

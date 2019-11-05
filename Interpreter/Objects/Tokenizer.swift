@@ -73,14 +73,26 @@ class Tokenizer {
         case ")":
             // right parentheses
             token = Token(kind: .rightParentheses, literal: String(currentCharacter))
+        case "=":
+            // assignment
+            token = Token(kind: .assignment, literal: String(currentCharacter))
+        case ";":
+            // semicolon
+            token = Token(kind: .semicolon, literal: String(currentCharacter))
+        case ".":
+            // dot
+            token = Token(kind: .dot, literal: String(currentCharacter))
         case endOfFileMarker:
             // end of file
             token = Token(kind: .endOfFile)
         default:
             // handle number literals
             if currentCharacter.isNumber {
-                let literal = try readNumber()
-                token = Token(kind: .number, literal: literal)
+                token = try readNumber()
+            }
+            // treat all other letters as identifiers
+            else if currentCharacter.isLetter {
+                token = readId()
             }
         }
 
@@ -128,16 +140,17 @@ class Tokenizer {
         }
     }
 
-    /// Read the number literal at this tokenizer's current position.
+    /// Read the number token at this tokenizer's current position.
     /// - Note: It is assumed that the existence of one is guaranteed before this method is called.
-    private func readNumber() throws -> String {
+    /// - Returns: The number token at this tokenizer's current position.
+    private func readNumber() throws -> Token {
         // read all the parts of the number literal
         // both digits and periods, for floating point literals
         // if there are multiple periods then break before the second one
-        var string = ""
+        var literal = ""
         var hasFoundPeriod = false
         while peekCharacter().isNumber || (peekCharacter() == "." && !hasFoundPeriod) {
-            string.append(currentCharacter)
+            literal.append(currentCharacter)
             if currentCharacter == "." {
                 hasFoundPeriod = true
             }
@@ -145,33 +158,44 @@ class Tokenizer {
             readCharacter()
         }
 
-        string.append(currentCharacter)
+        literal.append(currentCharacter)
 
         // ensure there was some form of number literal
-        guard !string.isEmpty else {
-            throw TokenizerError.invalidNumberLiteral(literal: string)
+        guard !literal.isEmpty else {
+            throw TokenizerError.invalidNumberLiteral(literal: literal)
         }
 
         // ensure that the number literal has digits at the beginning and end
         // this is to avoid something like .9812 or 12. for floating point literals
-        guard string.first?.isNumber ?? false && string.last?.isNumber ?? false else {
-            throw TokenizerError.invalidNumberLiteral(literal: string)
+        guard literal.first?.isNumber ?? false && literal.last?.isNumber ?? false else {
+            throw TokenizerError.invalidNumberLiteral(literal: literal)
         }
 
         // return the literal
-        return string
+        return Token(kind: .number, literal: literal)
     }
 
-    /// Read the number literal at this tokenizer's current position that is prefixed with a single character.
+    /// Read the identifier token at the current position of this tokenizer.
     /// - Note: It is assumed that the existence of one is guaranteed before this method is called.
-    private func readPrefixedNumber() throws -> String {
-        // read the prefix
-        let prefix = currentCharacter
-        readCharacter()
+    /// - Returns: The identifier token at the current position of this tokenizer. Can be either a keyword or a user defined ID.
+    private func readId() -> Token {
+        // read the literal
+        var literal = ""
+        while peekCharacter().isLetter {
+            literal.append(currentCharacter)
+            readCharacter()
+        }
 
-        // read and join the number literal
-        let number = try readNumber()
-        let literal = "\(prefix)\(number)"
-        return literal
+        literal.append(currentCharacter)
+
+        // map the literal to the corresponding token kind
+        switch literal {
+        case "BEGIN":
+            return Token(kind: .begin, literal: literal)
+        case "END":
+            return Token(kind: .end, literal: literal)
+        default:
+            return Token(kind: .id, literal: literal)
+        }
     }
 }

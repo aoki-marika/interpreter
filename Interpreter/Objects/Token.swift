@@ -60,6 +60,25 @@ extension Token {
         /// The `)` operator.
         case rightParentheses
 
+        /// The `=` operator.
+        case assignment
+
+        /// The `;` character.
+        case semicolon
+
+        /// The `.` character.
+        case dot
+
+        /// The `BEGIN` keyword.
+        case begin
+
+        /// The `END` keyword.
+        case end
+
+        /// A user defined identifier.
+        /// - Note: The token literal is the name of the identifier.
+        case id
+
         /// The end of file marker.
         ///
         /// If this is returned from a tokenizer then all of the text has been tokenized.
