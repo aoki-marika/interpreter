@@ -86,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				EC632AFD2371B06B00034E4F /* Node.swift */,
-				EC632B0E2371B37E00034E4F /* ValueNode.swift */,
 				EC632B0D2371B2AC00034E4F /* Values */,
 				EC632B0C2371B2A300034E4F /* Operators */,
 			);
@@ -108,6 +107,7 @@
 		EC632B0D2371B2AC00034E4F /* Values */ = {
 			isa = PBXGroup;
 			children = (
+				EC632B0E2371B37E00034E4F /* ValueNode.swift */,
 				EC632B0A2371B26A00034E4F /* NumberNode.swift */,
 			);
 			path = Values;
