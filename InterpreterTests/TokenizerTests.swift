@@ -71,6 +71,53 @@ class TokenizerTests: XCTestCase {
         )
     }
 
+    func testParentheses() {
+        assertTokens(
+            from: "   2(39)8)4 +72((673 )- 6)15(/ 6(958)1*43()2168   )(   */-7+*/     3",
+            equal: [
+                Token(kind: .number, literal: "2"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .number, literal: "39"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .number, literal: "8"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .number, literal: "4"),
+                Token(kind: .plus, literal: "+"),
+                Token(kind: .number, literal: "72"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .number, literal: "673"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .minus, literal: "-"),
+                Token(kind: .number, literal: "6"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .number, literal: "15"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .slash, literal: "/"),
+                Token(kind: .number, literal: "6"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .number, literal: "958"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .number, literal: "1"),
+                Token(kind: .asterisk, literal: "*"),
+                Token(kind: .number, literal: "43"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .number, literal: "2168"),
+                Token(kind: .rightParentheses, literal: ")"),
+                Token(kind: .leftParentheses, literal: "("),
+                Token(kind: .asterisk, literal: "*"),
+                Token(kind: .slash, literal: "/"),
+                Token(kind: .number, literal: "-7"),
+                Token(kind: .plus, literal: "+"),
+                Token(kind: .asterisk, literal: "*"),
+                Token(kind: .slash, literal: "/"),
+                Token(kind: .number, literal: "3"),
+                Token(kind: .endOfFile),
+            ]
+        )
+    }
+
     // MARK: Private Methods
 
     /// Assert the the given tokens match the ones found in the given text.

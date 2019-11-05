@@ -81,6 +81,12 @@ class Tokenizer {
         case "/":
             // division operator
             token = Token(kind: .slash, literal: String(currentCharacter))
+        case "(":
+            // left parentheses operator
+            token = Token(kind: .leftParentheses, literal: String(currentCharacter))
+        case ")":
+            // right parentheses operator
+            token = Token(kind: .rightParentheses, literal: String(currentCharacter))
         case ".":
             // handle invalid floating point literals that only have a `.` with no beginning `0`
             if isPrefixedNumber {

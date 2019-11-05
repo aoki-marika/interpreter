@@ -54,6 +54,12 @@ extension Token {
         /// The `/` operator.
         case slash
 
+        /// The `(` operator.
+        case leftParentheses
+
+        /// The `)` operator.
+        case rightParentheses
+
         /// The end of file marker.
         ///
         /// If this is returned from a tokenizer then all of the text has been tokenized.
