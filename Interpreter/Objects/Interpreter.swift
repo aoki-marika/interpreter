@@ -37,39 +37,12 @@ class Interpreter {
     /// If this is called multiple times, then the cached result of the initial evaluation is returned.
     /// - Returns: The result of the given text.
     func evaluate() throws -> Number {
-        // return the cached result if there is one
         if let result = result {
             return result
         }
 
-        // get the first token
         currentToken = try tokenizer.nextToken()
-
-        // evaluate all the subsequent operations on the same result
-        result = try term()
-        while currentToken.kind.isOperator {
-            // get the operator token and advance to the number token
-            let operatorToken = currentToken!
-            try nextToken()
-
-            // perform the appropriate operation on the result
-            #warning("TODO: This does not account for order of operations.")
-            let number = try term()
-            switch operatorToken.kind {
-            case .asterisk:
-                result *= number
-            case .minus:
-                result -= number
-            case .plus:
-                result += number
-            case .slash:
-                result /= number
-            default:
-                break
-            }
-        }
-
-        // return the final result
+        result = try expression()
         return result
     }
 
@@ -90,14 +63,60 @@ class Interpreter {
         try nextToken()
     }
 
-    /// Get the number value from the current token of this interpreter, and advance the current token.
+    /// Get the number value from the current token of this interpreter, and then advance the current token.
     /// - Returns: The number value of the current token of this interpreter.
-    private func term() throws -> Number {
-        // get the number token
+    private func factor() throws -> Number {
         let token = currentToken!
         try eat(kind: .number)
 
-        // parse and return the value
         return Number(token.literal)!
+    }
+
+    /// Get the result of the multiplication and/or division operations at the current token of this interpreter, if any.
+    ///
+    /// This method expects the current token to be the initial result of the operations, which then all subsequent operations are performed on.
+    ///
+    /// If there are no operations at the current token then nothing is done to this initial result, and it is returned as is.
+    /// - Returns: The result of the multiplication and/or division operations at the current token of this interpreter.
+    private func term() throws -> Number {
+        var result = try factor()
+
+        while currentToken.kind == .asterisk || currentToken.kind == .slash {
+            let operatorToken = currentToken!
+            try eat(kind: operatorToken.kind)
+
+            switch operatorToken.kind {
+            case .asterisk:
+                result *= try factor()
+            case .slash:
+                result /= try factor()
+            default:
+                break
+            }
+        }
+
+        return result
+    }
+
+    /// Get the result of the expression at the current token of this interpreter.
+    /// - Returns: The result of the operation at the current token of this interpreter.
+    private func expression() throws -> Number {
+        var result = try term()
+
+        while currentToken.kind == .plus || currentToken.kind == .minus {
+            let operatorToken = currentToken!
+            try eat(kind: operatorToken.kind)
+
+            switch operatorToken.kind {
+            case .plus:
+                result += try term()
+            case .minus:
+                result -= try term()
+            default:
+                break
+            }
+        }
+
+        return result
     }
 }

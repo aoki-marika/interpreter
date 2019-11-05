@@ -51,8 +51,7 @@ class InterpreterTests: XCTestCase {
     }
 
     func testCompoundNumberOperations() {
-        // test different compound number operations
-        // note: only does addition + subtraction or division + multiplication right now as order of operations is not implemented
+        // test different compound number operations that arent dependent on order of operations
         assertResult(of: "9 - 5 + 3 + 11", equals: 9 - 5 + 3 + 11)
         assertResult(of: "89 + 2351 - 479 + 1", equals: 89 + 2351 - 479 + 1)
         assertResult(of: "49 - 79 - 13 + 15 + 5", equals: 49 - 79 - 13 + 15 + 5)
@@ -64,6 +63,13 @@ class InterpreterTests: XCTestCase {
         assertResult(of: "49 / 79 / 13 * 15 * 5", equals: 49 / 79 / 13 * 15 * 5)
         assertResult(of: "-9879 / 1353 / 45", equals: -9879 / 1353 / 45)
         assertResult(of: "654 * 2 / -1456", equals: 654 * 2 / -1456)
+    }
+
+    func testOrderOfNumberOperations() {
+        // test different compound number operations that are dependent on order of operations
+        assertResult(of: "2 + 7 * 4", equals: 2 + 7 * 4)
+        assertResult(of: "7 - 8 / 4", equals: 7 - 8 / 4)
+        assertResult(of: "14 + 2 * 3 - 6 / 2", equals: 14 + 2 * 3 - 6 / 2)
     }
 
     // MARK: Private Methods
