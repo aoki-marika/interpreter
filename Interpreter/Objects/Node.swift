@@ -57,17 +57,25 @@ extension Node {
 
         // MARK: Cases
 
-        /// Performs an addition operation on the first and second children, being the left and right operands respectively.
+        #warning("TODO: Are these names correct?")
+
+        /// Performs a binary addition operation on the first and second children, being the left and right operands respectively.
         case addition
 
-        /// Performs a subtraction operation on the first and second children, being the left and right operands respectively.
+        /// Performs a binary subtraction operation on the first and second children, being the left and right operands respectively.
         case subtraction
 
-        /// Performs a multiplication operation on the first and second children, being the left and right operands respectively.
+        /// Performs a binary multiplication operation on the first and second children, being the left and right operands respectively.
         case multiplication
 
-        /// Performs a division operation on the first and second children, being the left and right operands respectively.
+        /// Performs a binary division operation on the first and second children, being the left and right operands respectively.
         case division
+
+        /// Performs an unary negative operation on the first child, that being the operand.
+        case negative
+
+        /// Performs an unary positive operation on the first child, that being the operand.
+        case positive
 
         /// Contains a static number value.
         case number(value: Number)

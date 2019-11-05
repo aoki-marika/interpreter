@@ -14,6 +14,12 @@ enum InterpreterError: Error {
     // MARK: Cases
 
     /// The interpreter expected to find binary operands in a node's children, but found an incorrect amount.
+    /// - Parameter kind: The kind of the binary operator node.
     /// - Parameter count: The incorrect amount of children that were found.
-    case invalidBinaryOperandCount(count: Int)
+    case invalidBinaryOperandCount(kind: Node.Kind, count: Int)
+
+    /// The interpreter expected to find an unary operand in a node's children, but found an incorrect amount.
+    /// - Parameter kind: The kind of the unary operator node.
+    /// - Parameter count: The incorrect amount of children that were found.
+    case invalidUnaryOperandCount(kind: Node.Kind, count: Int)
 }

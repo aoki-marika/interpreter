@@ -64,6 +64,14 @@ class Parser {
         let token = currentToken!
 
         switch token.kind {
+        case .plus:
+            // unary plus operator
+            try eat(kind: .plus)
+            return Node(kind: .positive, children: [try factor()])
+        case .minus:
+            // unary minus operator
+            try eat(kind: .minus)
+            return Node(kind: .negative, children: [try factor()])
         case .number:
             // return number nodes as is
             try eat(kind: .number)

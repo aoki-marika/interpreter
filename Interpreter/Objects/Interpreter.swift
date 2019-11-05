@@ -43,6 +43,9 @@ class Interpreter {
         case .addition, .subtraction, .multiplication, .division:
             // perform binary operators and return the result
             return try visitBinaryOperator(node: node)
+        case .positive, .negative:
+            // perform unary operators and return the result
+            return try visitUnaryOperator(node: node)
         case .number(let value):
             // return numbers immediately
             return value
@@ -55,7 +58,7 @@ class Interpreter {
     private func visitBinaryOperator(node: Node) throws -> Number {
         // ensure that the given node has the correct amount of children for binary operands
         guard node.children.count == 2 else {
-            throw InterpreterError.invalidBinaryOperandCount(count: node.children.count)
+            throw InterpreterError.invalidBinaryOperandCount(kind: node.kind, count: node.children.count)
         }
 
         // get the operands
@@ -74,6 +77,29 @@ class Interpreter {
             return left / right
         default:
             fatalError("attempted to visit invalid binary operator: \(node.kind)")
+        }
+    }
+
+    /// Traverse the given unary operator node and perform it's operation on it's operand child.
+    /// - Parameter node: The operator node to get the operand of and perform the operation of.
+    /// - Returns: The resulting value of performing the given node's operation on it's operand.
+    private func visitUnaryOperator(node: Node) throws -> Number {
+        // ensure that the given node has the correct amount of children for an unary operand
+        guard node.children.count == 1 else {
+            throw InterpreterError.invalidUnaryOperandCount(kind: node.kind, count: node.children.count)
+        }
+
+        // get the operand
+        let operand = try visit(node: node.children[0])
+
+        // perform the operation and return the result
+        switch node.kind {
+        case .positive:
+            return +operand
+        case .negative:
+            return -operand
+        default:
+            fatalError("attempted to visit invalid unary operator: \(node.kind)")
         }
     }
 }

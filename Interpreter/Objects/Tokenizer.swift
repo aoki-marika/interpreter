@@ -28,13 +28,6 @@ class Tokenizer {
     /// - Note: If this is `endOfFileMarker` then this tokenizer is at the end of it's file.
     private var currentCharacter: Character
 
-    /// Whether or not the text at the current position could be a number with a prefixed character.
-    ///
-    /// Used for negatives and invalid floating point literals with no beginning `0`.
-    private var isPrefixedNumber: Bool {
-        return peekCharacter().isNumber
-    }
-
     /// MARK: Initializers
 
     /// - Parameter text: The text for this tokenizer to get tokens from.
@@ -63,41 +56,28 @@ class Tokenizer {
         var token: Token?
         switch currentCharacter {
         case "*":
-            // multiplication operator
+            // asterisk
             token = Token(kind: .asterisk, literal: String(currentCharacter))
         case "-":
-            // handle negative number literals
-            if isPrefixedNumber {
-                let literal = try readPrefixedNumber()
-                token = Token(kind: .number, literal: literal)
-            }
-            // else its a subtraction operator
-            else {
-                token = Token(kind: .minus, literal: String(currentCharacter))
-            }
+            // minus
+            token = Token(kind: .minus, literal: String(currentCharacter))
         case "+":
-            // addition operator
+            // plus
             token = Token(kind: .plus, literal: String(currentCharacter))
         case "/":
-            // division operator
+            // slash
             token = Token(kind: .slash, literal: String(currentCharacter))
         case "(":
-            // left parentheses operator
+            // left parentheses
             token = Token(kind: .leftParentheses, literal: String(currentCharacter))
         case ")":
-            // right parentheses operator
+            // right parentheses
             token = Token(kind: .rightParentheses, literal: String(currentCharacter))
-        case ".":
-            // handle invalid floating point literals that only have a `.` with no beginning `0`
-            if isPrefixedNumber {
-                let literal = try readPrefixedNumber()
-                throw TokenizerError.invalidNumberLiteral(literal: literal)
-            }
         case endOfFileMarker:
-            // end of file marker
+            // end of file
             token = Token(kind: .endOfFile)
         default:
-            // handle positive number literals
+            // handle number literals
             if currentCharacter.isNumber {
                 let literal = try readNumber()
                 token = Token(kind: .number, literal: literal)

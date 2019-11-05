@@ -60,6 +60,17 @@ class InterpreterTests: XCTestCase {
         assertResult(of: "7 + 3 * (10 / (12 / (3 + 1) - 1))", equals: 22)
     }
 
+    func testUnaryNumberOperations() {
+        // test different unary operator scenarios
+        assertResult(of: "-20", equals: -20)
+        assertResult(of: "-20 + 30", equals: -20 + 30)
+        assertResult(of: "30 - -20", equals: 30 - -20)
+        assertResult(of: "--30 - -20", equals: 30 - -20)
+        assertResult(of: "5 - - - 2", equals: 3)
+        assertResult(of: "+20 + 20", equals: 40)
+        assertResult(of: "-20 * -2 + +40", equals: -20 * -2 + 40)
+    }
+
     // MARK: Private Methods
 
     /// Assert that the result of the given program text matches the given value.

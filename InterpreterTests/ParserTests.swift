@@ -111,6 +111,54 @@ class ParserTests: XCTestCase {
         )
     }
 
+    func testUnaryOperators() {
+        // test unary operators
+        assertTree(
+            from: "-5 + 3",
+            equals: Node(
+                kind: .addition,
+                children: [
+                    Node(kind: .negative, children: [
+                        Node(kind: .number(value: 5)),
+                    ]),
+                    Node(kind: .number(value: 3)),
+                ]
+            )
+        )
+
+        assertTree(
+            from: "5 - +3",
+            equals: Node(
+                kind: .subtraction,
+                children: [
+                    Node(kind: .number(value: 5)),
+                    Node(kind: .positive, children: [
+                        Node(kind: .number(value: 3)),
+                    ]),
+                ]
+            )
+        )
+
+        assertTree(
+            from: "5 - - - + - 3",
+            equals: Node(
+                kind: .subtraction,
+                children: [
+                    Node(kind: .number(value: 5)),
+                    Node(kind: .negative, children: [
+                        Node(kind: .negative, children: [
+                            Node(kind: .positive, children: [
+                                Node(kind: .negative, children: [
+                                    Node(kind: .number(value: 3))
+                                ]),
+                            ]),
+                        ]),
+                    ]),
+                ]
+            )
+        )
+    }
+
     // MARK: Private Methods
 
     /// Assert that the root node from the given program text matches the given node.
