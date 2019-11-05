@@ -8,14 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EC632AFE2371B06B00034E4F /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632AFD2371B06B00034E4F /* Node.swift */; };
-		EC632B012371B09700034E4F /* BinaryOperatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B002371B09700034E4F /* BinaryOperatorNode.swift */; };
-		EC632B032371B1B800034E4F /* AdditionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B022371B1B800034E4F /* AdditionNode.swift */; };
-		EC632B052371B1D100034E4F /* SubtractionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B042371B1D100034E4F /* SubtractionNode.swift */; };
-		EC632B072371B1EE00034E4F /* MultiplicationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B062371B1EE00034E4F /* MultiplicationNode.swift */; };
-		EC632B092371B20000034E4F /* DivisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B082371B20000034E4F /* DivisionNode.swift */; };
-		EC632B0B2371B26A00034E4F /* NumberNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B0A2371B26A00034E4F /* NumberNode.swift */; };
-		EC632B0F2371B37E00034E4F /* ValueNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC632B0E2371B37E00034E4F /* ValueNode.swift */; };
-		EC8F5D372371B55C0024D7F8 /* NodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F5D362371B55C0024D7F8 /* NodeTests.swift */; };
 		EC8F5D392371B6030024D7F8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F5D382371B6020024D7F8 /* Parser.swift */; };
 		ECCC5C4B236EFF5500B00468 /* Interpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCC5C41236EFF5500B00468 /* Interpreter.framework */; };
 		ECCC5C50236EFF5500B00468 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C4F236EFF5500B00468 /* ParserTests.swift */; };
@@ -40,14 +32,6 @@
 
 /* Begin PBXFileReference section */
 		EC632AFD2371B06B00034E4F /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		EC632B002371B09700034E4F /* BinaryOperatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryOperatorNode.swift; sourceTree = "<group>"; };
-		EC632B022371B1B800034E4F /* AdditionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionNode.swift; sourceTree = "<group>"; };
-		EC632B042371B1D100034E4F /* SubtractionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtractionNode.swift; sourceTree = "<group>"; };
-		EC632B062371B1EE00034E4F /* MultiplicationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicationNode.swift; sourceTree = "<group>"; };
-		EC632B082371B20000034E4F /* DivisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionNode.swift; sourceTree = "<group>"; };
-		EC632B0A2371B26A00034E4F /* NumberNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberNode.swift; sourceTree = "<group>"; };
-		EC632B0E2371B37E00034E4F /* ValueNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueNode.swift; sourceTree = "<group>"; };
-		EC8F5D362371B55C0024D7F8 /* NodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTests.swift; sourceTree = "<group>"; };
 		EC8F5D382371B6020024D7F8 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		ECCC5C41236EFF5500B00468 /* Interpreter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Interpreter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCC5C44236EFF5500B00468 /* Interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpreter.h; sourceTree = "<group>"; };
@@ -82,37 +66,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EC632AFF2371B07400034E4F /* Nodes */ = {
-			isa = PBXGroup;
-			children = (
-				EC632AFD2371B06B00034E4F /* Node.swift */,
-				EC632B0D2371B2AC00034E4F /* Values */,
-				EC632B0C2371B2A300034E4F /* Operators */,
-			);
-			path = Nodes;
-			sourceTree = "<group>";
-		};
-		EC632B0C2371B2A300034E4F /* Operators */ = {
-			isa = PBXGroup;
-			children = (
-				EC632B002371B09700034E4F /* BinaryOperatorNode.swift */,
-				EC632B022371B1B800034E4F /* AdditionNode.swift */,
-				EC632B042371B1D100034E4F /* SubtractionNode.swift */,
-				EC632B062371B1EE00034E4F /* MultiplicationNode.swift */,
-				EC632B082371B20000034E4F /* DivisionNode.swift */,
-			);
-			path = Operators;
-			sourceTree = "<group>";
-		};
-		EC632B0D2371B2AC00034E4F /* Values */ = {
-			isa = PBXGroup;
-			children = (
-				EC632B0E2371B37E00034E4F /* ValueNode.swift */,
-				EC632B0A2371B26A00034E4F /* NumberNode.swift */,
-			);
-			path = Values;
-			sourceTree = "<group>";
-		};
 		ECCC5C37236EFF5500B00468 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +98,6 @@
 		ECCC5C4E236EFF5500B00468 /* InterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
-				EC8F5D362371B55C0024D7F8 /* NodeTests.swift */,
 				ECCC5C4F236EFF5500B00468 /* ParserTests.swift */,
 				ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */,
 				ECCC5C51236EFF5500B00468 /* Info.plist */,
@@ -156,10 +108,10 @@
 		ECCC5C5B236EFFCE00B00468 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				EC632AFF2371B07400034E4F /* Nodes */,
 				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
 				ECCC5C62236F251F00B00468 /* Tokenizer.swift */,
 				ECF904A32370630600DAB6F7 /* TokenizerError.swift */,
+				EC632AFD2371B06B00034E4F /* Node.swift */,
 				EC8F5D382371B6020024D7F8 /* Parser.swift */,
 				ECF904A723708A5F00DAB6F7 /* ParserError.swift */,
 			);
@@ -276,19 +228,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC632B0B2371B26A00034E4F /* NumberNode.swift in Sources */,
 				EC8F5D392371B6030024D7F8 /* Parser.swift in Sources */,
 				ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */,
-				EC632B012371B09700034E4F /* BinaryOperatorNode.swift in Sources */,
-				EC632B032371B1B800034E4F /* AdditionNode.swift in Sources */,
-				EC632B052371B1D100034E4F /* SubtractionNode.swift in Sources */,
 				ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */,
 				ECF904AA2370B71400DAB6F7 /* Types.swift in Sources */,
 				ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */,
-				EC632B092371B20000034E4F /* DivisionNode.swift in Sources */,
-				EC632B0F2371B37E00034E4F /* ValueNode.swift in Sources */,
 				ECF904A823708A5F00DAB6F7 /* ParserError.swift in Sources */,
-				EC632B072371B1EE00034E4F /* MultiplicationNode.swift in Sources */,
 				EC632AFE2371B06B00034E4F /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +243,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECCC5C50236EFF5500B00468 /* ParserTests.swift in Sources */,
-				EC8F5D372371B55C0024D7F8 /* NodeTests.swift in Sources */,
 				ECF904A62370640F00DAB6F7 /* TokenizerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

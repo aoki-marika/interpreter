@@ -20,7 +20,7 @@ class Parser {
     private var currentToken: Token!
 
     /// The cached result of the first call to `parse()`, if any.
-    private var result: ValueNode?
+    private var result: Node?
 
     // MARK: Initializers
 
@@ -35,8 +35,8 @@ class Parser {
     ///
     /// This is intended to only be called once.
     /// If this is called multiple times, then the cached result of the first parse is returned.
-    /// - Returns: The node containing the result of the given text.
-    func parse() throws -> ValueNode {
+    /// - Returns: The root node of this parser's text.
+    func parse() throws -> Node {
         if let result = result {
             return result
         }
@@ -58,17 +58,16 @@ class Parser {
         currentToken = try tokenizer.nextToken()
     }
 
-    /// Get the value node from the current token of this parser, and then advance the current token.
-    /// - Returns: The value token of the current token of this parser.
-    private func factor() throws -> ValueNode {
+    /// Get the factor node from the current token of this parser, and then advance the current token.
+    /// - Returns: The factor node of the current token of this parser.
+    private func factor() throws -> Node {
         let token = currentToken!
 
         switch token.kind {
         case .number:
             // return number nodes as is
             try eat(kind: .number)
-            let number = Number(token.literal)!
-            return NumberNode(value: number)
+            return Node(token: token)
         case .leftParentheses:
             // return parentheses nodes as trees
             try eat(kind: .leftParentheses)
@@ -80,61 +79,37 @@ class Parser {
         }
     }
 
-    /// Get the value node of the multiplication and/or division operations at the current token of this parser, if any.
-    ///
-    /// This method expects the current token to be the initial result of the operations, which then all subsequent operations are performed on.
-    ///
-    /// If there are no operations at the current token then nothing is done to this initial result, and it is returned as is.
-    /// - Returns: The value node of the multiplication and/or division operations at the current token of this parser.
-    private func term() throws -> ValueNode {
+    /// Get the term node for the current token of this parser, and then advance the current token.
+    /// - Returns: The term node of the current token of this parser.
+    private func term() throws -> Node {
         var node = try factor()
 
         while currentToken.kind == .asterisk || currentToken.kind == .slash {
             let token = currentToken!
             try eat(kind: token.kind)
 
-            switch token.kind {
-            case .asterisk:
-                node = MultiplicationNode(
-                    left: node,
-                    right: try factor()
-                )
-            case .slash:
-                node = DivisionNode(
-                    left: node,
-                    right: try factor()
-                )
-            default:
-                break
-            }
+            node = Node(
+                token: token,
+                children: [node, try factor()]
+            )
         }
 
         return node
     }
 
-    /// Get the value node of the expression at the current token of this parser.
-    /// - Returns: The value node of the operation at the current token of this parser.
-    private func expression() throws -> ValueNode {
+    /// Get the expression node for the current token of this parser, and then advance the current token.
+    /// - Returns: The expression node of the current token of this parser.
+    private func expression() throws -> Node {
         var node = try term()
 
         while currentToken.kind == .plus || currentToken.kind == .minus {
             let token = currentToken!
             try eat(kind: token.kind)
 
-            switch token.kind {
-            case .plus:
-                node = AdditionNode(
-                    left: node,
-                    right: try term()
-                )
-            case .minus:
-                node = SubtractionNode(
-                    left: node,
-                    right: try term()
-                )
-            default:
-                break
-            }
+            node = Node(
+                token: token,
+                children: [node, try term()]
+            )
         }
 
         return node
