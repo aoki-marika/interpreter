@@ -72,6 +72,13 @@ class InterpreterTests: XCTestCase {
         assertResult(of: "14 + 2 * 3 - 6 / 2", equals: 14 + 2 * 3 - 6 / 2)
     }
 
+    func testParenthesesNumberOperations() {
+        // test different compound number operations that are dependent on order of operations and parentheses
+        // the swift compiler cant evaluate this within the timeout, so use the final result in place
+        // 7 + 3 * (10 / (12 / (3 + 1) - 1)) = 22
+        assertResult(of: "7 + 3 * (10 / (12 / (3 + 1) - 1))", equals: 22)
+    }
+
     // MARK: Private Methods
 
     /// Assert that the result of the given program text matches the given value.

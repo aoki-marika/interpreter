@@ -67,9 +67,21 @@ class Interpreter {
     /// - Returns: The number value of the current token of this interpreter.
     private func factor() throws -> Number {
         let token = currentToken!
-        try eat(kind: .number)
 
-        return Number(token.literal)!
+        switch token.kind {
+        case .number:
+            // return numbers
+            try eat(kind: .number)
+            return Number(token.literal)!
+        case .leftParentheses:
+            // evaluate parentheses immediately
+            try eat(kind: .leftParentheses)
+            let result = try expression()
+            try eat(kind: .rightParentheses)
+            return result
+        default:
+            throw InterpreterError.invalidFactorKind(kind: token.kind)
+        }
     }
 
     /// Get the result of the multiplication and/or division operations at the current token of this interpreter, if any.

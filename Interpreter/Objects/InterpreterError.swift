@@ -17,4 +17,8 @@ enum InterpreterError: Error {
     /// - Parameter expected: The token kind that was expected.
     /// - Parameter got: The token kind that was found.
     case unexpectedTokenKind(expected: Token.Kind, got: Token.Kind)
+
+    /// The interpreter expected to find a factor, but found a token with an invalid kind.
+    /// - Parameter kind: The kind of the token that was found.
+    case invalidFactorKind(kind: Token.Kind)
 }
