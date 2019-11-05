@@ -13,8 +13,8 @@ class ParserTests: XCTestCase {
 
     // MARK: Test Cases
 
-    func testBasic() {
-        // test relatively basic operations with order of operations and parentheses
+    func testBasicArithmetic() {
+        // test relatively basic arithmetic with order of operations and parentheses
         assertTree(
             from: "7 + 5",
             equals: Node(
@@ -67,8 +67,8 @@ class ParserTests: XCTestCase {
         )
     }
 
-    func testComplex() {
-        // test an overly complex operation
+    func testComplexArithmetic() {
+        // test more complex arithmetic
         assertTree(
             from: "7 + 3 * (10 / (12 / (3 + 1) - 1))",
             equals: Node(
