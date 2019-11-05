@@ -59,13 +59,13 @@ class ParserTests: XCTestCase {
     // MARK: Private Methods
 
     /// Assert that the result of the given program text matches the given value.
-    /// - Parameter text: The program text to evaluate.
+    /// - Parameter text: The program text to parse.
     /// - Parameter expected: The result that is expected.
     private func assertResult(of text: String, equals expected: Number) {
         let parser = Parser(text: text)
 
         var root: ValueNode!
-        XCTAssertNoThrow(root = try parser.evaluate())
+        XCTAssertNoThrow(root = try parser.parse())
         XCTAssertEqual(root.value, expected)
     }
 }

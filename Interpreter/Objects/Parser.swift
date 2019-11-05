@@ -16,10 +16,10 @@ class Parser {
     /// The tokenizer for this parser's text.
     private let tokenizer: Tokenizer
 
-    /// The current token this parser is processing, if any. Not set until the first call to `evaluate()`.
+    /// The current token this parser is processing, if any. Not set until the first call to `parse()`.
     private var currentToken: Token!
 
-    /// The cached result of the first call to `evaluate()`, if any.
+    /// The cached result of the first call to `parse()`, if any.
     private var result: ValueNode?
 
     // MARK: Initializers
@@ -31,12 +31,12 @@ class Parser {
 
     // MARK: Public Methods
 
-    /// Evaluate this parser's text and return the root node.
+    /// Parse this parser's text and return the root node.
     ///
     /// This is intended to only be called once.
-    /// If this is called multiple times, then the cached result of the first evaluation is returned.
+    /// If this is called multiple times, then the cached result of the first parse is returned.
     /// - Returns: The node containing the result of the given text.
-    func evaluate() throws -> ValueNode {
+    func parse() throws -> ValueNode {
         if let result = result {
             return result
         }
