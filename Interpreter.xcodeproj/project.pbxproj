@@ -16,9 +16,9 @@
 		ECCC5C50236EFF5500B00468 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C4F236EFF5500B00468 /* ParserTests.swift */; };
 		ECCC5C52236EFF5500B00468 /* Interpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECCC5C44236EFF5500B00468 /* Interpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C5C236EFFEF00B00468 /* Token.swift */; };
-		ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C62236F251F00B00468 /* Tokenizer.swift */; };
-		ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A32370630600DAB6F7 /* TokenizerError.swift */; };
-		ECF904A62370640F00DAB6F7 /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */; };
+		ECCC5C63236F251F00B00468 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC5C62236F251F00B00468 /* Lexer.swift */; };
+		ECF904A42370630600DAB6F7 /* LexerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A32370630600DAB6F7 /* LexerError.swift */; };
+		ECF904A62370640F00DAB6F7 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A52370640F00DAB6F7 /* LexerTests.swift */; };
 		ECF904A823708A5F00DAB6F7 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A723708A5F00DAB6F7 /* ParserError.swift */; };
 		ECF904AA2370B71400DAB6F7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF904A92370B71400DAB6F7 /* Types.swift */; };
 /* End PBXBuildFile section */
@@ -46,9 +46,9 @@
 		ECCC5C4F236EFF5500B00468 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		ECCC5C51236EFF5500B00468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCC5C5C236EFFEF00B00468 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		ECCC5C62236F251F00B00468 /* Tokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
-		ECF904A32370630600DAB6F7 /* TokenizerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerError.swift; sourceTree = "<group>"; };
-		ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
+		ECCC5C62236F251F00B00468 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		ECF904A32370630600DAB6F7 /* LexerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerError.swift; sourceTree = "<group>"; };
+		ECF904A52370640F00DAB6F7 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		ECF904A723708A5F00DAB6F7 /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
 		ECF904A92370B71400DAB6F7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				EC213B412371D0FB006939A5 /* InterpreterTests.swift */,
+				ECF904A52370640F00DAB6F7 /* LexerTests.swift */,
 				ECCC5C4F236EFF5500B00468 /* ParserTests.swift */,
-				ECF904A52370640F00DAB6F7 /* TokenizerTests.swift */,
 				ECCC5C51236EFF5500B00468 /* Info.plist */,
 			);
 			path = InterpreterTests;
@@ -116,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
-				ECCC5C62236F251F00B00468 /* Tokenizer.swift */,
-				ECF904A32370630600DAB6F7 /* TokenizerError.swift */,
+				ECCC5C62236F251F00B00468 /* Lexer.swift */,
+				ECF904A32370630600DAB6F7 /* LexerError.swift */,
 				EC632AFD2371B06B00034E4F /* Node.swift */,
 				EC8F5D382371B6020024D7F8 /* Parser.swift */,
 				ECF904A723708A5F00DAB6F7 /* ParserError.swift */,
@@ -239,8 +239,8 @@
 			files = (
 				EC213B3C2371CE4C006939A5 /* Interpreter.swift in Sources */,
 				EC8F5D392371B6030024D7F8 /* Parser.swift in Sources */,
-				ECF904A42370630600DAB6F7 /* TokenizerError.swift in Sources */,
-				ECCC5C63236F251F00B00468 /* Tokenizer.swift in Sources */,
+				ECF904A42370630600DAB6F7 /* LexerError.swift in Sources */,
+				ECCC5C63236F251F00B00468 /* Lexer.swift in Sources */,
 				ECF904AA2370B71400DAB6F7 /* Types.swift in Sources */,
 				ECCC5C5D236EFFEF00B00468 /* Token.swift in Sources */,
 				ECF904A823708A5F00DAB6F7 /* ParserError.swift in Sources */,
@@ -255,7 +255,7 @@
 			files = (
 				ECCC5C50236EFF5500B00468 /* ParserTests.swift in Sources */,
 				EC213B422371D0FB006939A5 /* InterpreterTests.swift in Sources */,
-				ECF904A62370640F00DAB6F7 /* TokenizerTests.swift in Sources */,
+				ECF904A62370640F00DAB6F7 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

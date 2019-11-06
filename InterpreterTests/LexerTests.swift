@@ -1,5 +1,5 @@
 //
-//  TokenizerTests.swift
+//  LexerTests.swift
 //  InterpreterTests
 //
 //  Created by Marika on 2019-11-04.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Interpreter
 
-class TokenizerTests: XCTestCase {
+class LexerTests: XCTestCase {
 
     // MARK: Test Cases
 
@@ -151,22 +151,21 @@ class TokenizerTests: XCTestCase {
     /// - Parameter text: The program text to get tokens from.
     /// - Parameter expectedTokens: The tokens that are expected to be within the given text.
     private func assertTokens(from text: String, equal expectedTokens: [Token]) {
-        // create the tokenizer
-        let tokenizer = Tokenizer(text: text)
+        let lexer = Lexer(text: text)
 
         // iterate over all the texts tokens and ensure they match the given ones
         var expectedIndex = 0
         while true {
             // get the next token
             var token: Token!
-            XCTAssertNoThrow(token = try tokenizer.nextToken())
+            XCTAssertNoThrow(token = try lexer.nextToken())
 
             // assert that it matches the expected token
             let expectedToken = expectedTokens[expectedIndex]
             XCTAssertEqual(token, expectedToken)
             expectedIndex += 1
 
-            // break if all the text has been tokenized
+            // break if the lexer has finished
             if token.kind == .endOfFile {
                 break
             }

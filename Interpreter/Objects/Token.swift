@@ -81,7 +81,7 @@ extension Token {
 
         /// The end of file marker.
         ///
-        /// If this is returned from a tokenizer then all of the text has been tokenized.
+        /// If this is returned from a lexer then all of the text has been analyzed.
         /// - Note: The value of this token is always empty.
         case endOfFile
 

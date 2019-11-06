@@ -1,5 +1,5 @@
 //
-//  Tokenizer.swift
+//  Lexer.swift
 //  Interpreter
 //
 //  Created by Marika on 2019-11-03.
@@ -8,29 +8,30 @@
 
 import Foundation
 
-class Tokenizer {
+/// The object for performing lexical analysis on program text.
+class Lexer {
 
     // MARK: Private Properties
 
-    /// The special character used for the current character when this tokenizer has reached the end of it's text.
+    /// The special character used for the current character when this lexer has reached the end of it's text.
     private let endOfFileMarker = Character("\0")
 
-    /// The text that this tokenizer is getting tokens from.
+    /// The text that this lexer is getting tokens from.
     private let text: String
 
-    /// The position of the current character in this tokenizer's text.
+    /// The position of the current character in this lexer's text.
     private var currentPosition: String.Index
 
-    /// The position that this tokenizer will read the next character from in it's text.
+    /// The position that this lexer will read the next character from in it's text.
     private var readPosition: String.Index
 
-    /// The current character that this tokenizer is parsing from it's text.
-    /// - Note: If this is `endOfFileMarker` then this tokenizer is at the end of it's file.
+    /// The current character that this lexer is parsing from it's text.
+    /// - Note: If this is `endOfFileMarker` then this lexer is at the end of it's text.
     private var currentCharacter: Character
 
     /// MARK: Initializers
 
-    /// - Parameter text: The text for this tokenizer to get tokens from.
+    /// - Parameter text: The text for this lexer to analyze.
     init(text: String) {
         self.text = text
 
@@ -45,8 +46,8 @@ class Tokenizer {
 
     // MARK: Public Methods
 
-    /// Attempt to read the next token from this tokenizer.
-    /// - Note: If this returns `Token.Kind.endOfFile`, then all of this tokenizer's text has been tokenized.
+    /// Attempt to analyze the next token from this lexer.
+    /// - Note: If this returns `Token.Kind.endOfFile`, then all of this lexer's text has been analyzed.
     /// - Returns: The next token.
     func nextToken() throws -> Token {
         // skip over any whitespace
@@ -98,7 +99,7 @@ class Tokenizer {
 
         // fallback to an invalid character error if no matching token kind was found
         guard let unwrappedToken = token else {
-            throw TokenizerError.invalidCharacter(character: currentCharacter)
+            throw LexerError.invalidCharacter(character: currentCharacter)
         }
 
         // read the next character for the next token
@@ -110,8 +111,8 @@ class Tokenizer {
 
     // MARK: Private Methods
 
-    /// Get the next character that this tokenizer will read, without advancing the read position.
-    /// - Returns: The next character this tokenizer will read.
+    /// Get the next character that this lexer will read, without advancing the read position.
+    /// - Returns: The next character this lexer will read.
     private func peekCharacter() -> Character {
         guard readPosition < text.endIndex else {
             return endOfFileMarker
@@ -120,8 +121,8 @@ class Tokenizer {
         return text[readPosition]
     }
 
-    /// Advance this tokenizer's reading position and update it's current character.
-    /// - Note: If this tokenizer has reached the end of it's text, then the current and reading positions are the end of the text, with the current character always being `endOfFileMarker`.
+    /// Advance this lexer's reading position and update it's current character.
+    /// - Note: If this lexer has reached the end of it's text, then the current and reading positions are the end of the text, with the current character always being `endOfFileMarker`.
     private func readCharacter() {
         guard readPosition < text.endIndex else {
             currentCharacter = endOfFileMarker
@@ -133,16 +134,16 @@ class Tokenizer {
         readPosition = text.index(after: readPosition)
     }
 
-    /// Skip over all adjacent whitespace characters after this tokenizer's current position.
+    /// Skip over all adjacent whitespace characters after this lexer's current position.
     private func skipWhitespace() {
         while currentCharacter.isWhitespace {
             readCharacter()
         }
     }
 
-    /// Read the number token at this tokenizer's current position.
+    /// Read the number token at this lexer's current position.
     /// - Note: It is assumed that the existence of one is guaranteed before this method is called.
-    /// - Returns: The number token at this tokenizer's current position.
+    /// - Returns: The number token at this lexer's current position.
     private func readNumber() throws -> Token {
         // read all the parts of the number literal
         // both digits and periods, for floating point literals
@@ -162,22 +163,22 @@ class Tokenizer {
 
         // ensure there was some form of number literal
         guard !literal.isEmpty else {
-            throw TokenizerError.invalidNumberLiteral(literal: literal)
+            throw LexerError.invalidNumberLiteral(literal: literal)
         }
 
         // ensure that the number literal has digits at the beginning and end
         // this is to avoid something like .9812 or 12. for floating point literals
         guard literal.first?.isNumber ?? false && literal.last?.isNumber ?? false else {
-            throw TokenizerError.invalidNumberLiteral(literal: literal)
+            throw LexerError.invalidNumberLiteral(literal: literal)
         }
 
         // return the literal
         return Token(kind: .number, literal: literal)
     }
 
-    /// Read the identifier token at the current position of this tokenizer.
+    /// Read the identifier token at the current position of this lexer.
     /// - Note: It is assumed that the existence of one is guaranteed before this method is called.
-    /// - Returns: The identifier token at the current position of this tokenizer. Can be either a keyword or a user defined ID.
+    /// - Returns: The identifier token at the current position of this lexer. Can be either a keyword or a user defined ID.
     private func readId() -> Token {
         // read the literal
         var literal = ""

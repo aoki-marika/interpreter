@@ -13,8 +13,8 @@ class Parser {
 
     // MARK: Private Methods
 
-    /// The tokenizer for this parser's text.
-    private let tokenizer: Tokenizer
+    /// The lexer for this parser's text.
+    private let lexer: Lexer
 
     /// The current token this parser is processing, if any. Not set until the first call to `parse()`.
     private var currentToken: Token!
@@ -26,7 +26,7 @@ class Parser {
 
     /// - Parameter text: The text for this parser to parse.
     init(text: String) {
-        self.tokenizer = Tokenizer(text: text)
+        self.lexer = Lexer(text: text)
     }
 
     // MARK: Public Methods
@@ -42,7 +42,7 @@ class Parser {
         }
 
         // read and the root program node
-        currentToken = try tokenizer.nextToken()
+        currentToken = try lexer.nextToken()
         let node = try program()
 
         // ensure the text ends in an eof
@@ -62,7 +62,7 @@ class Parser {
             throw ParserError.unexpectedTokenKind(expected: kind, got: currentToken.kind)
         }
 
-        currentToken = try tokenizer.nextToken()
+        currentToken = try lexer.nextToken()
     }
 
     /// Get the factor node from the current token of this parser, and then advance the current token.
