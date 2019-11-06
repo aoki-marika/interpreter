@@ -72,6 +72,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC6B1A442373016500812A8F /* Lexer */ = {
+			isa = PBXGroup;
+			children = (
+				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
+				ECCC5C62236F251F00B00468 /* Lexer.swift */,
+				ECF904A32370630600DAB6F7 /* LexerError.swift */,
+			);
+			path = Lexer;
+			sourceTree = "<group>";
+		};
+		EC6B1A452373016F00812A8F /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				EC632AFD2371B06B00034E4F /* Node.swift */,
+				EC8F5D382371B6020024D7F8 /* Parser.swift */,
+				ECF904A723708A5F00DAB6F7 /* ParserError.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
 		ECCC5C37236EFF5500B00468 = {
 			isa = PBXGroup;
 			children = (
@@ -94,7 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				ECF904A92370B71400DAB6F7 /* Types.swift */,
-				ECCC5C5B236EFFCE00B00468 /* Objects */,
+				EC6B1A442373016500812A8F /* Lexer */,
+				EC6B1A452373016F00812A8F /* Parser */,
+				ECCC5C5B236EFFCE00B00468 /* Interpreter */,
 				ECCC5C44236EFF5500B00468 /* Interpreter.h */,
 				ECCC5C45236EFF5500B00468 /* Info.plist */,
 			);
@@ -112,19 +134,13 @@
 			path = InterpreterTests;
 			sourceTree = "<group>";
 		};
-		ECCC5C5B236EFFCE00B00468 /* Objects */ = {
+		ECCC5C5B236EFFCE00B00468 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
-				ECCC5C5C236EFFEF00B00468 /* Token.swift */,
-				ECCC5C62236F251F00B00468 /* Lexer.swift */,
-				ECF904A32370630600DAB6F7 /* LexerError.swift */,
-				EC632AFD2371B06B00034E4F /* Node.swift */,
-				EC8F5D382371B6020024D7F8 /* Parser.swift */,
-				ECF904A723708A5F00DAB6F7 /* ParserError.swift */,
 				EC213B3B2371CE4C006939A5 /* Interpreter.swift */,
 				EC213B3F2371CF9F006939A5 /* InterpreterError.swift */,
 			);
-			path = Objects;
+			path = Interpreter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
