@@ -41,8 +41,15 @@ class Parser {
             return result
         }
 
+        // read and the root program node
         currentToken = try tokenizer.nextToken()
-        result = try expression()
+        let node = try program()
+
+        // ensure the text ends in an eof
+        try eat(kind: .endOfFile)
+
+        // return the root node
+        result = node
         return result!
     }
 
@@ -83,7 +90,8 @@ class Parser {
             try eat(kind: .rightParentheses)
             return node
         default:
-            throw ParserError.invalidFactorKind(kind: token.kind)
+            // try everything else as a variable
+            return try variable()
         }
     }
 
@@ -121,5 +129,92 @@ class Parser {
         }
 
         return node
+    }
+
+    /// Get the program compound statement node from the current token of this interpreter.
+    /// - Returns: The program compound statement node from the current token of this interpreter.
+    private func program() throws -> Node {
+        // all programs are compound statements ending with a dot
+        let node = try compoundStatement()
+        try eat(kind: .dot)
+        return node
+    }
+
+    /// Get the compound statement node from the current token of this interpreter.
+    /// - Returns: The compound statement node from the current token of this interpreter.
+    private func compoundStatement() throws -> Node {
+        // compound statements are lists of statements wrapped by `BEGIN` and `END`
+        try eat(kind: .begin)
+        let children = try statementList()
+        try eat(kind: .end)
+
+        let node = Node(kind: .compoundStatement, children: children)
+        return node
+    }
+
+    /// Get a list of all the semicolon-separated statement nodes from the current token of this interpreter.
+    ///
+    /// If there are no semicolons then just the first statement is returned.
+    /// - Returns: A list of all the semicolon-separated statement nodes from the current token of this interpreter.
+    private func statementList() throws -> [Node] {
+        // statement lists are multiple statements separated by semicolons
+        // these are used to perform multiple statements within a compound statement block
+        let node = try statement()
+        var results = [node]
+
+        while currentToken.kind == .semicolon {
+            try eat(kind: .semicolon)
+            results.append(try statement())
+        }
+
+        if currentToken.kind == .id {
+            throw ParserError.unexpectedTokenKind(expected: .end, got: .id)
+        }
+
+        return results
+    }
+
+    /// Get the statement node from the current token of this interpreter.
+    /// - Returns: The statement node from the current token of this interpreter.
+    private func statement() throws -> Node {
+        // handle the different statement kinds depending on the first token
+        switch currentToken.kind {
+        case .begin:
+            return try compoundStatement()
+        case .id:
+            return try assignmentStatement()
+        default:
+            return empty()
+        }
+    }
+
+    /// Get the assignment statement node from the current token of this interpreter.
+    /// - Returns: The assignment statement node from the current token of this interpreter.
+    private func assignmentStatement() throws -> Node {
+        // assign the right expressions value to the left variable
+        let left = try variable()
+        try eat(kind: .assignment)
+        let right = try expression()
+
+        return Node(kind: .assignmentStatement, children: [
+            left,
+            right
+        ])
+    }
+
+    /// Get the variable node from the current token of this interpreter.
+    /// - Returns: The variable node from the current token of this interpreter.
+    private func variable() throws -> Node {
+        // read the variable of the given name
+        let name = currentToken.literal
+        let node = Node(kind: .variable(name: name))
+        try eat(kind: .id)
+        return node
+    }
+
+    /// Get the empty statement from the current token of this interpreter.
+    /// - Returns: The empty statement from the current token of this interpreter.
+    private func empty() -> Node {
+        return Node(kind: .emptyStatement)
     }
 }

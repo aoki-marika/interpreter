@@ -96,13 +96,13 @@ class Tokenizer {
             }
         }
 
-        // read the next character for the next token
-        readCharacter()
-
         // fallback to an invalid character error if no matching token kind was found
         guard let unwrappedToken = token else {
             throw TokenizerError.invalidCharacter(character: currentCharacter)
         }
+
+        // read the next character for the next token
+        readCharacter()
 
         // return the new token
         return unwrappedToken

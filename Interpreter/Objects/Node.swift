@@ -77,8 +77,21 @@ extension Node {
         /// Performs an unary positive operation on the first child, that being the operand.
         case positive
 
+        /// A `BEGIN ... END` compound statement block, with the children being the statements.
+        case compoundStatement
+
+        /// Assigns the value of the right operand expression to the keyword described by the left operand, being the second and first children respectively.
+        case assignmentStatement
+
+        /// An empty statement. Used to allow empty compound statements and the like.
+        case emptyStatement
+
         /// Contains a static number value.
         case number(value: Number)
+
+        /// References a variable by name.
+        /// - Parameter name: The name of the variable.
+        case variable(name: String)
     }
 }
 

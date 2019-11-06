@@ -17,8 +17,4 @@ enum ParserError: Error {
     /// - Parameter expected: The token kind that was expected.
     /// - Parameter got: The token kind that was found.
     case unexpectedTokenKind(expected: Token.Kind, got: Token.Kind)
-
-    /// The parser expected to find a factor, but instead found a token with an invalid kind.
-    /// - Parameter kind: The kind of the token that was found.
-    case invalidFactorKind(kind: Token.Kind)
 }
